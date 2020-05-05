@@ -1,12 +1,9 @@
 server:
-  port: 30752
+  port: 30381
 
 eureka:
   instance:
-    hostname: discovery-service
-    prefer-ip-address: true
-    lease-expiration-duration-in-seconds: 90
-    lease-renewal-interval-in-seconds: 90
+    hostname: localhost
   client:
     registerWithEureka: false
     fetchRegistry: true
@@ -19,4 +16,4 @@ spring:
   boot:
     admin:
       context-path: /admin
-      
+      url: http://localhost:8061

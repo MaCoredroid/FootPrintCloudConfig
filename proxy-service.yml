@@ -1,18 +1,16 @@
 server:
-  port: 30751
+  port: 30382
 
 eureka:
   instance:
-    hostname: proxy-service
-    prefer-ip-address: true
+    leaseRenewalIntervalInSeconds: 10
     health-check-url-path: /actuator/health
     metadata-map:
       startup: ${random.int}   
   client:
-    register-with-eureka: true
-    fetch-registry: true
+    registryFetchIntervalSeconds: 5
     serviceUrl:
-      defaultZone: http://discovery-service:30752/eureka/
+      defaultZone: http://localhost:8061/eureka/
 management:
   endpoints:
     web:
@@ -20,28 +18,20 @@ management:
         include: "*"  
   endpoint:
     health:
-      show-details: ALWAYS   
+      show-details: ALWAYS
               
 zuul:
   routes:
-    user-service:
-      path: /user/**
-      serviceId: user-service
-    pet-service:
-      path: /pet/**
-      serviceId: pet-service
-    record-service:
-      path: /record/**
-      serviceId: record-service
-    location-service:
-      path: /location/**
-      serviceId: location-service
-    rule-service:
-      path: /rule/**
-      serviceId: rule-service
-    forum-service:
-      path: /forum/**
-      serviceId: forum-service
+    group-service:
+      path: /group/**
+      serviceId: group-service
+    org-service:
+      path: /org/**
+      serviceId: org-service
+    student-service:
+      path: /student/**
+      serviceId: student-service
+    
       
 hystrix:
   command:
@@ -51,7 +41,4 @@ hystrix:
           thread:
             timeoutInMilliseconds: 10000
             
-spring:
-  data.mongodb:
-    uri: mongodb://mongo-auth:27017/auth
-  autoconfigure.exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+ 
