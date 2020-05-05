@@ -1,16 +1,20 @@
 server:
   port: 30382
 
+  
+  
 eureka:
   instance:
-    leaseRenewalIntervalInSeconds: 10
+    hostname: proxy-service
+    prefer-ip-address: true
     health-check-url-path: /actuator/health
     metadata-map:
       startup: ${random.int}   
   client:
-    registryFetchIntervalSeconds: 5
+    register-with-eureka: true
+    fetch-registry: true
     serviceUrl:
-      defaultZone: http://localhost:8061/eureka/
+      defaultZone: http://discovery-service:30381/eureka/
 management:
   endpoints:
     web:
@@ -18,7 +22,7 @@ management:
         include: "*"  
   endpoint:
     health:
-      show-details: ALWAYS
+      show-details: ALWAYS 
               
 zuul:
   routes:
